@@ -1,0 +1,51 @@
+from PyQt5 import QtWidgets, uic
+
+
+class Converter:
+    def __init__(self):
+        self.dlg = uic.loadUi("/Users/teowinkler/Qt/Files/running_converter.ui")
+        self.dlg.btConvert.clicked.connect(self.distributer)
+        self.dlg.show()
+
+    def distributer(self):
+        try:
+            self.dlg.label.setText("")
+            if self.dlg.lePace.text() == "":
+                self.pace()
+            elif self.dlg.leDistance.text() == "":
+                self.distance()
+            elif self.dlg.leTime.text() == "":
+                self.time()
+        except ValueError:
+            self.dlg.label.setText("Fill in two fields with correct numbers")
+
+    def pace(self):
+        distance = self.dlg.leDistance.text()
+        time = self.dlg.leTime.text()
+        pace = round((float(time) / float(distance)), 2)
+        minutes = int(float(pace))
+        seconds = (float(pace) * 60) % 60
+        self.dlg.lePace.setText("%2d.%02d" % (minutes, seconds))
+
+    def distance(self):
+        time = self.dlg.leTime.text()
+        pace = self.pace_reversed()
+        distance = round((float(time) / pace), 2)
+        self.dlg.leDistance.setText(str(distance))
+
+    def time(self):
+        distance = self.dlg.leDistance.text()
+        pace = self.pace_reversed()
+        time = round((float(distance) * pace), 0)
+        self.dlg.leTime.setText(str(time))
+
+    def pace_reversed(self):
+        pace = float(self.dlg.lePace.text())
+        minutes = int(pace)
+        seconds = (pace - minutes) * 10**4 / 60
+        return float("%2d.%02d" % (minutes, seconds))
+
+
+app = QtWidgets.QApplication([])
+convert = Converter()
+app.exec()
