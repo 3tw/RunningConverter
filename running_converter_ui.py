@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 
 
-class UiRunningConverter(QtWidgets.QWidget):    #argument changed from object
+class UiRunningConverter(QtWidgets.QWidget):    #parameter changed from "object" to "QtWidgets.QWidget"
     def __init__(self):
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
