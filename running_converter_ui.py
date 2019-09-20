@@ -143,8 +143,8 @@ class UiRunningConverter(QtWidgets.QWidget):    #parameter changed from "object"
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
-    ex = UiRunningConverter()
-    ex.show()
+    converter = UiRunningConverter()
+    converter.show()
     sys.exit(app.exec())
 
 
